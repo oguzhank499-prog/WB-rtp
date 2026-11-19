@@ -1,0 +1,35 @@
+(()=>{'use strict';const host=document.getElementById('wb-mastery');if(!host)return;
+const bank=[
+['Lewis','H₂CN₂ için toplam değerlik elektron sayısı kaçtır?',['14','16','18','20'],1,'2×1 + 4 + 2×5 = 16 elektron.'],
+['Lewis','H₃O⁺ iyonunda merkez O kaç yalnız elektron çifti taşır?',['0','1','2','3'],1,'O üç O–H bağı ve bir yalnız çift taşır.'],
+['Lewis','CO₂ için oktetleri sağlayan en yaygın Lewis gösterimi hangisidir?',['O–C–O','O=C=O','O≡C–O','O–C≡O'],1,'İki çift bağ tüm atomların oktetini sağlar ve formal yükleri sıfırlar.'],
+['Lewis','NO₃⁻ iyonunda eşdeğer rezonans yapısı sayısı kaçtır?',['1','2','3','4'],2,'N=O çift bağı üç O atomundan herhangi birine yerleşebilir.'],
+['Formal yük','NH₄⁺ içindeki azotun formal yükü nedir?',['−1','0','+1','+2'],2,'5 − 0 − 4 = +1.'],
+['Formal yük','NO₃⁻ iyonunda tek bağlı oksijenin formal yükü nedir?',['−1','0','+1','+2'],0,'O için 6 − 6 − 1 = −1.'],
+['Formal yük','O=C=O yapısında merkez karbonun formal yükü kaçtır?',['−2','−1','0','+1'],2,'C için 4 − 0 − 4 = 0.'],
+['Formal yük','H₂O molekülünde O için formal yük kaçtır?',['−1','0','+1','+2'],1,'6 − 4 − 2 = 0.'],
+['Organik','CH₃–CH=CH₂ + HBr (peroksitsiz) ana ürün nedir?',['1-bromopropan','2-bromopropan','1,2-dibromopropan','Propan'],1,'Sekonder karbokatyon üzerinden Markovnikov katılması gerçekleşir.'],
+['Organik','Benzen nitrasyonunda aktif elektrofil nedir?',['NO₃⁻','NO₂⁺','HNO₃','NH₄⁺'],1,'HNO₃/H₂SO₄ karışımında nitronyum iyonu NO₂⁺ oluşur.'],
+['Organik','Wurtz: 2 CH₃CH₂Br + 2 Na (kuru eter) ana ürün?',['Etan','Propan','Bütan','Hekzan'],2,'İki etil grubu birleşir: CH₃CH₂–CH₂CH₃.'],
+['Organik','SN2 mekanizmasının belirleyici özelliği nedir?',['Serbest karbokatyon','Tek basamakta arkadan saldırı','Radikal zincir','Yalnız aromatik halkada olur'],1,'SN2 bağ oluşumu ve ayrılan grubun çıkışı aynı basamakta olur.'],
+['Analitik','AgCl(s) ⇌ Ag⁺ + Cl⁻ için saf sudaki molar çözünürlük s ise Ksp nedir?',['s','2s','s²','4s³'],2,'[Ag⁺]=[Cl⁻]=s olduğundan Ksp=s².'],
+['Analitik','CaF₂(s) ⇌ Ca²⁺ + 2F⁻ için Ksp hangi ifadedir?',['s²','2s²','4s³','27s⁴'],2,'[Ca²⁺]=s, [F⁻]=2s; Ksp=s(2s)²=4s³.'],
+['Analitik','25 °C’de saf suda [H₃O⁺] yaklaşık kaç M?',['10⁻¹⁴','10⁻⁷','10⁻³','1'],1,'Kw=10⁻¹⁴ ve [H₃O⁺]=[OH⁻], dolayısıyla 10⁻⁷ M.'],
+['Analitik','Kompleksleşme bir metal iyonunun serbest derişimini azaltırsa az çözünen tuzun çözünürlüğü genellikle nasıl etkilenir?',['Azalır','Değişmez','Artar','Her zaman sıfırlanır'],2,'Serbest iyon uzaklaştırıldıkça çözünme dengesi sağa kayabilir.'],
+['Fizikokimya','Sabit sıcaklıkta ideal gaz için P iki katına çıkarsa V ne olur?',['İki katına çıkar','Yarıya iner','Değişmez','Dört katına çıkar'],1,'Boyle yasası: PV=sabit.'],
+['Fizikokimya','Ekzotermik tepkimede ΔH işareti nedir?',['Pozitif','Negatif','Sıfır','Belirsiz'],1,'Sistem çevreye ısı verir; entalpi değişimi negatiftir.'],
+['Fizikokimya','Birinci dereceden tepkimede yarı ömür hangi büyüklüğe bağlıdır?',['Başlangıç derişimi','Hız sabiti k','Ürün kütlesi','Kap hacmi'],1,'t₁/₂=ln2/k; başlangıç derişiminden bağımsızdır.'],
+['Fizikokimya','298 K için ideal gaz denkleminde doğru ifade hangisi?',['PV=nRT','P=nVRT','PV=RT/n','P/V=nRT'],0,'İdeal gaz yasası PV=nRT.']
+];
+const KEY='wb-diagnostic-v1';let store={};try{store=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch{};let active=null,wrong=false,seen=0;
+const root=document.createElement('div');root.id='wb-diagnostic';root.className='panel';root.innerHTML='<h3>Konu Seviye Tespiti</h3><p class="muted">Gerçek deneme geçmişine göre yanlış ve gecikmiş sorular öncelik kazanır. Başarı puanı tek başına ustalık sayılmaz.</p><label for="diag-topic">Konu</label><select id="diag-topic"><option value="all">Tüm konular</option></select><div id="diag-summary" aria-live="polite"></div><div class="diag-question"><small id="diag-label"></small><h4 id="diag-q"></h4><div id="diag-options"></div><p id="diag-explanation" aria-live="polite"></p><button id="diag-next" class="primary wide" hidden>Sonraki soru</button></div><button id="diag-review" class="wide">Yanlışları tekrar et</button><p class="muted" style="font-size:12px">Tekrar aralıkları: doğru cevapta 1 → 3 → 7 → 14 gün; yanlış cevapta tekrar sıfırlanır. Veriler cihazında saklanır.</p>';
+host.append(root);const $=id=>root.querySelector('#'+id);const topics=[...new Set(bank.map(q=>q[0]))];topics.forEach(t=>{const o=document.createElement('option');o.value=t;o.textContent=t;$('diag-topic').append(o)});
+function save(){try{localStorage.setItem(KEY,JSON.stringify(store))}catch{}}
+function status(i){return store[i]||{streak:0,attempts:0,correct:0,due:0}}
+function candidates(onlyWrong=false){const topic=$('diag-topic').value,now=Date.now();return bank.map((q,i)=>({q,i,s:status(i)})).filter(x=>(topic==='all'||x.q[0]===topic)&&(!onlyWrong||x.s.attempts>x.s.correct));}
+function pick(onlyWrong=false){const arr=candidates(onlyWrong);if(!arr.length){$('diag-q').textContent=onlyWrong?'Bu konuda kayıtlı yanlış yok.':'Bu konuda soru yok.';$('diag-options').replaceChildren();$('diag-next').hidden=true;active=null;return;}arr.sort((a,b)=>{const score=x=>x.s.attempts===0?-1000:x.s.due<=Date.now()?-500-(x.s.attempts-x.s.correct)*30:x.s.due;return score(a)-score(b)});const chosen=arr[0];active=chosen.i;seen++;renderQuestion()}
+function renderSummary(){const topic=$('diag-topic').value,arr=bank.map((q,i)=>({q,s:status(i)})).filter(x=>topic==='all'||x.q[0]===topic);const done=arr.filter(x=>x.s.attempts).length,due=arr.filter(x=>x.s.attempts&&x.s.due<=Date.now()).length,solid=arr.filter(x=>x.s.streak>=4).length;$('diag-summary').textContent=`${done}/${arr.length} soru denendi · ${due} tekrar bekliyor · ${solid} soru 14 günlük aşamaya ulaştı`}
+function renderQuestion(){if(active===null)return;const q=bank[active];$('diag-label').textContent=q[0]+' · Soru '+seen;$('diag-q').textContent=q[1];$('diag-options').replaceChildren();$('diag-explanation').textContent='';$('diag-next').hidden=true;q[2].forEach((answer,i)=>{const b=document.createElement('button');b.className='mech-option';b.textContent=String.fromCharCode(65+i)+') '+answer;b.onclick=()=>answerQuestion(i);$('diag-options').append(b)});renderSummary()}
+function answerQuestion(choice){if(active===null||$('diag-next').hidden===false)return;const q=bank[active],ok=choice===q[3],s=status(active),streak=ok?Math.min(4,s.streak+1):0;const intervals=[0,1,3,7,14];store[active]={streak,attempts:s.attempts+1,correct:s.correct+(ok?1:0),due:Date.now()+(ok?intervals[streak]*86400000:0),last:Date.now()};save();[...$('diag-options').children].forEach((b,i)=>{b.disabled=true;if(i===q[3])b.classList.add('mech-good');if(i===choice&&!ok)b.classList.add('mech-bad')});$('diag-explanation').textContent=(ok?'✓ Doğru. ':'Yanlış. ')+q[4]+(ok?' Sonraki tekrar: '+intervals[streak]+' gün.':' Bu soru tekrar listene alındı.');$('diag-next').hidden=false;renderSummary()}
+$('diag-next').onclick=()=>pick(wrong);$('diag-topic').onchange=()=>{wrong=false;pick()};$('diag-review').onclick=()=>{wrong=true;pick(true)};pick();
+})();

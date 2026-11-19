@@ -1,0 +1,1 @@
+WB Kişisel 2.9: Kimyasal tepkime denkleştirme atölyesi (tam sayı rasyonel satır indirgeme), atom korunumu tablosu, yanma/asit-baz/hidrat örnekleri. Ana sayfa tarih alanı dinamik. Sınırlar: iyon yükleri ve redoks yarı tepkimeleri desteklenmez; bazı çok serbest değişkenli tepkimelerde çözüm bulunamayabilir.

@@ -1,0 +1,1 @@
+WB Kişisel 2.3: Elektron Oku Atölyesi eklendi. 5 yönlendirmeli mekanizma, kullanıcı tarafından kaynak/hedef seçimiyle ok çizimi, yön ve eksik ok kontrolü, adım açıklamaları ve yerel ilerleme kaydı. Bu editör serbest atomik yapı çizimi veya genel mekanizma doğrulayıcısı değildir.

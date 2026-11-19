@@ -1,0 +1,1 @@
+WB Kişisel 1.1: Organik Mekanizma Laboratuvarı eklendi. 6 mekanizma, 18 adım, her adımda geri bildirim, deneme hatası takibi ve yerel kayıt. Bu sürüm mekanizma oklarını serbest çizdirmez; yönlendirmeli sorular sunar. Önceki veriler korunur.

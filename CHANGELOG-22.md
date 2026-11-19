@@ -1,0 +1,1 @@
+WB 2.2: Rezonans laboratuvarı: nitrat, karbonat, ozon, asetat ve nitrit için bağ derecesi değiştirme, formal yük hesabı, kanonik yapı gösterimi ve yerel ilerleme kaydı. Sınırlamalar: yalnız beş tanımlı sistem, otomatik genel rezonans denetimi veya serbest elektron okları değildir.

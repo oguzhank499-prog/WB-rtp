@@ -1,0 +1,1 @@
+WB 2.1: Serbest Lewis taslak atölyesi. 12 atoma kadar atom ekleme, bağ derecesi 1–3, yalnız elektron çiftleri, formal yük ve elektron bütçesi kontrolü, kayıt/yükleme, geri alma. Sınırlamalar: serbest sürükleme ve otomatik rezonans eşdeğerliği yok; formal yük kontrolü kimyasal geçerliliği tek başına kanıtlamaz.

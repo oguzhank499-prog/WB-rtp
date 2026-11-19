@@ -1,0 +1,1 @@
+WB 2.7: Stokiyometri Laboratuvarı eklendi: sınırlayıcı reaktif, yüzde verim, ideal gaz ve asit-baz eşdeğerliği. Birim varsayımları ve adım adım çözümler görünür. Pozitif sonlu sayı doğrulaması eklendi. Gerçek Android cihaz testleri yapılmadı.

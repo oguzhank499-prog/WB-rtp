@@ -1,0 +1,33 @@
+(()=>{'use strict';
+const host=document.getElementById('wb-mastery');if(!host)return;
+const problems=[
+{title:'Nitrat iyonu · NO₃⁻',atoms:['N','O₁','O₂','O₃'],charge:-1,edges:[[0,1],[0,2],[0,3]],correct:[2,1,1],lone:[0,2,3,3],answers:3,why:'Nitratta üç eşdeğer kanonik yapı vardır. Her yapıda bir N=O, iki N–O⁻ bulunur; toplam yük −1 ve N üzerinde formal yük +1’dir.'},
+{title:'Karbonat iyonu · CO₃²⁻',atoms:['C','O₁','O₂','O₃'],charge:-2,edges:[[0,1],[0,2],[0,3]],correct:[2,1,1],lone:[0,2,3,3],answers:3,why:'Karbonatın üç eşdeğer kanonik yapısı bulunur. İki tek bağlı oksijenin formal yükü −1, toplam iyon yükü −2’dir.'},
+{title:'Ozon · O₃',atoms:['O₁','O₂','O₃'],charge:0,edges:[[0,1],[1,2]],correct:[2,1],lone:[2,1,3],answers:2,why:'Ozonun iki eşdeğer rezonans yapısı vardır. Merkez O formal +1, tek bağlı uç O formal −1 yük taşır.'},
+{title:'Asetat iyonu · CH₃COO⁻',atoms:['CH₃','C','O₁','O₂'],charge:-1,edges:[[0,1],[1,2],[1,3]],correct:[1,2,1],lone:[0,0,2,3],answers:2,why:'Karboksilat grubundaki iki oksijen eşdeğerdir. Negatif yük rezonansla iki O arasında dağılır; C–C iskeleti değişmez.'},
+{title:'Nitrit iyonu · NO₂⁻',atoms:['O₁','N','O₂'],charge:-1,edges:[[0,1],[1,2]],correct:[2,1],lone:[2,1,3],answers:2,why:'Nitritte iki eşdeğer rezonans yapısı vardır. Tek bağlı oksijen −1 yük taşır; N üzerinde bir yalnız çift vardır.'}
+];
+const valence={N:5,O:6,C:4};const key='wb-resonance-v1';let store={};try{store=JSON.parse(localStorage.getItem(key)||'{}')||{}}catch{};
+const panel=document.createElement('section');panel.id='wb-resonance';panel.className='panel';panel.innerHTML=`<h3>Rezonans Laboratuvarı</h3><p class="muted">Bağ derecelerini değiştirerek kanonik yapıları oluştur. Aynı atom iskeleti korunur; yalnız elektronların yerleşimi değişir.</p><label for="res-case">Molekül / iyon</label><select id="res-case"></select><div id="res-molecule" role="group" aria-label="Bağları değiştirilebilir rezonans yapısı"></div><div class="res-toolbar"><button id="res-reset">Başlangıç yapısı</button><button id="res-check">Yapıyı denetle</button><button id="res-variant">Diğer rezonans yapısını göster</button></div><p id="res-feedback" aria-live="polite"></p><div id="res-charges"></div><p id="res-explain" class="muted"></p><p id="res-progress" class="muted"></p>`;host.append(panel);
+const $=s=>panel.querySelector('#'+s);let active=0,orders=[],variant=0;
+const base=s=>s.replace(/[₀-₉]/g,'').replace(/CH₃/,'C');
+const positions={3:[[18,55],[50,35],[82,55]],4:[[50,48],[18,16],[82,16],[50,85]]};
+function fc(i){const p=problems[active],symbol=base(p.atoms[i]);if(p.atoms[i]==='CH₃')return 0;const bonds=p.edges.reduce((sum,e,k)=>sum+(e.includes(i)?orders[k]:0),0);const terminalO=symbol==='O'&&p.edges.filter(e=>e.includes(i)).length===1;const lone=terminalO?(bonds===1?3:bonds===2?2:1):(p.lone[i]||0);return (valence[symbol]||0)-2*lone-bonds}
+function formula(){return problems[active].atoms.map((a,i)=>a+(a==='CH₃'?'':`(${fc(i)>0?'+':''}${fc(i)})`)).join(' ')}
+function draw(){const p=problems[active],root=$('res-molecule');root.replaceChildren();const points=positions[p.atoms.length];const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 100 110');svg.setAttribute('aria-hidden','true');svg.classList.add('res-svg');p.edges.forEach(([a,b],k)=>{const [x1,y1]=points[a],[x2,y2]=points[b],dx=x2-x1,dy=y2-y1,len=Math.hypot(dx,dy)||1,ox=-dy/len*2,oy=dx/len*2;for(let j=0;j<orders[k];j++){const off=j-(orders[k]-1)/2,line=document.createElementNS('http://www.w3.org/2000/svg','line');line.setAttribute('x1',x1+off*ox);line.setAttribute('y1',y1+off*oy);line.setAttribute('x2',x2+off*ox);line.setAttribute('y2',y2+off*oy);line.setAttribute('stroke','#84b99a');line.setAttribute('stroke-width','1.3');svg.append(line)}});root.append(svg);
+p.atoms.forEach((a,i)=>{const b=document.createElement('span');b.className='res-atom';b.style.left=points[i][0]+'%';b.style.top=points[i][1]/110*100+'%';b.textContent=a;root.append(b)});
+p.edges.forEach(([a,b],k)=>{const el=document.createElement('button');el.className='res-bond';el.style.left=(points[a][0]+points[b][0])/2+'%';el.style.top=(points[a][1]+points[b][1])/220*100+'%';el.textContent=orders[k]===1?'Tekli':orders[k]===2?'İkili':'Üçlü';el.title='Bağ derecesini değiştir';el.onclick=()=>{orders[k]=orders[k]===3?1:orders[k]+1;update();};root.append(el)});
+$('res-charges').textContent='Formal yükler: '+formula()+' · Toplam: '+p.atoms.reduce((s,_,i)=>s+fc(i),0)+' · İyon: '+p.charge;
+}
+function update(){draw();$('res-feedback').textContent='';}
+function canonical(){const p=problems[active];if(orders.length!==p.correct.length)return false;const counts=orders.slice().sort().join(',');if(counts!==p.correct.slice().sort().join(','))return false;
+// Only move a double bond among symmetry-equivalent terminal oxygen positions.
+const fixed=p.edges.map((e,i)=>e.some(j=>p.atoms[j]==='CH₃')?i:-1).filter(i=>i>=0);if(fixed.some(i=>orders[i]!==p.correct[i]))return false;
+const total=p.atoms.reduce((s,_,i)=>s+fc(i),0);return total===p.charge;
+}
+function load(i){active=i;variant=0;orders=[...problems[i].correct];$('res-case').value=String(i);$('res-explain').textContent=problems[i].why;update();progress()}
+function progress(){const n=Object.values(store).filter(v=>v?.passed).length;$('res-progress').textContent=`Doğrulanan sistem: ${n} / ${problems.length}. Kontrol yalnız bu beş tanımlı rezonans ailesini kapsar.`}
+problems.forEach((p,i)=>$('res-case').add(new Option(p.title,String(i))));$('res-case').onchange=()=>load(Number($('res-case').value));$('res-reset').onclick=()=>load(active);
+$('res-check').onclick=()=>{const ok=canonical(),p=problems[active];$('res-feedback').textContent=ok?'✓ Tanımlı rezonans ailesine uygun yapı. '+p.why:'Bu yapı tanımlı rezonans ailesine uymuyor. Bağ derecelerini, formal yükleri ve toplam iyon yükünü incele. Yalnız atom iskeletini değiştirmeden π elektronlarını taşı.';if(ok){store[active]={passed:true,date:new Date().toISOString()};try{localStorage.setItem(key,JSON.stringify(store))}catch{}progress()}};
+$('res-variant').onclick=()=>{const p=problems[active];variant=(variant+1)%p.answers;orders=[...p.correct];const movable=p.edges.map((e,i)=>e.some(j=>p.atoms[j]==='CH₃')?-1:i).filter(i=>i>=0);const double=movable.find(i=>orders[i]===2);if(double!==undefined){orders[double]=1;orders[movable[variant]]=2}update();$('res-feedback').textContent='Kanonik yapı '+(variant+1)+' / '+p.answers+'. Rezonansda atomlar hareket etmez; elektron dağılımı değişir.'};load(0);
+})();

@@ -1,0 +1,1 @@
+WB Kişisel 2.6: Ustalık Kanıt Defteri. Kimya Akademisi kayıtlarından doğruluk ve ardışık başarı okunur. Açık uçlu gerekçe, yeni probleme transfer, farklı günlerde kişisel tekrar ayrı ayrı tutulur. Otomatik doğrulanmayan notlar gerçek başarı olarak sayılmaz. İleri aşama ve ustalık adayı koşulları görünür. Mevcut veriler silinmez.

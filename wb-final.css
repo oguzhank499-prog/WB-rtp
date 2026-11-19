@@ -1,0 +1,17 @@
+
+:root{--bg:#090a0b!important;--panel:#141516!important;--panel2:#1c1d1e!important;--line:#323436!important;--muted:#a5a6a7!important;--text:#efefed!important;--accent:#d3b478!important}
+html,body{background:#090a0b!important;color:#efefed!important}body{background-image:none!important}
+.panel{background:#141516!important;border:1px solid #333536!important;border-radius:14px!important;box-shadow:none!important}
+.hero,.hero:after{background:none!important;box-shadow:none!important}
+header{border-bottom:0!important}header .logo-mark{display:none!important}header h1{font-size:23px!important;font-weight:600!important;letter-spacing:2px!important;color:#d3b478!important}
+header>.tag{display:none!important}#home>.hero,#home>.panel{display:none!important}
+body:not(.wb-custom) nav{display:none!important}
+.tile,.answer,button,input,select,textarea{border-radius:10px!important;box-shadow:none!important}
+.primary{background:#25231e!important;border-color:#6c5b3c!important;color:#e5d0a1!important}
+#wb-radial button{background:#18191a!important;color:#efefed!important}
+#wb-renew-home .recent{background:#101112!important}
+#wb-deep .panel,#wb-lewis-editor,#wb-discovery-research{background:#141516!important}
+#wb-discovery-research{margin-top:24px}
+#wb-discovery-research .wb-disc-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+body[data-page-accent=periodic]{--accent:#55bdb4!important}body[data-page-accent=mastery]{--accent:#84b99a!important}body[data-page-accent=explore]{--accent:#75a9e8!important}body[data-page-accent=games]{--accent:#e39c67!important}body[data-page-accent=assistant]{--accent:#a89ae6!important}
+@media(max-width:380px){#wb-radial{width:95vw!important}#wb-radial button{font-size:11px!important;padding:9px!important}}

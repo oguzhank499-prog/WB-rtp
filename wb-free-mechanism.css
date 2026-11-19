@@ -1,0 +1,7 @@
+#wb-free-mechanism .fm-tools{display:flex;flex-wrap:wrap;gap:8px;align-items:end;margin:12px 0}#wb-free-mechanism .fm-tools label{flex:1;min-width:130px}#wb-free-mechanism .fm-board{width:100%;background:#11191b;border:1px solid #415159;border-radius:12px;overflow:hidden;touch-action:manipulation}#wb-free-mechanism svg{width:100%;height:auto;display:block;aspect-ratio:5/3}#wb-free-mechanism .fm-target{cursor:pointer}#wb-free-mechanism textarea{width:100%;box-sizing:border-box;min-height:80px}
+.fm-check-result{margin:12px 0;padding:12px;border:1px solid #53645b;border-radius:10px;color:#d6e1da;background:#171f1c}.fm-check-result p{margin:8px 0}.fm-check-result li{margin:5px 0}
+
+#fm-charge-tools[hidden]{display:none!important}#fm-charge-tools input{max-width:110px;margin:5px 0}#fm-charge-output{font-size:13px;color:#84b99a}
+
+/* 5.0: reaction step history */
+.fm-timeline{margin-top:1rem;border-top:1px solid #4a514d;padding-top:.75rem}.fm-timeline-entry{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.55rem 0;border-bottom:1px solid #39433d}.fm-timeline-entry span{font-size:.85rem}.fm-timeline-entry button{flex-shrink:0}.fm-timeline h4{margin:.2rem 0 .5rem}

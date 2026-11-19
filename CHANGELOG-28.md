@@ -1,0 +1,1 @@
+WB Kişisel 2.8: Termodinamik ve Kinetik Laboratuvarı: Gibbs, denge sabiti, Arrhenius, kalorimetri, birinci derece kinetik. Birim dönüşümleri, alan doğrulama ve çözüm adımları. İdeal varsayımlar belirtilir.

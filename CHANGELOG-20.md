@@ -1,0 +1,1 @@
+WB Kişisel 2.0: 20 konu içeren çevrimdışı Kimya Akademisi, alan filtresi, kavram anlatımı, ölçme soruları, bağımsız gerekçe notu, yerel ilerleme, 1/3/7/14 gün tekrar. Bilinen sınırlar: serbest kimyasal yapı editörü, AI sunucusu, gerçek Android cihaz testi ve kapsamlı içerik doğrulaması tamamlanmadı.
